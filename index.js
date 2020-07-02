@@ -27,6 +27,8 @@ app.use(cors({
 // Compression
 app.use(compression())
 
+app.use('/api-documentation', express.static('doc'))
+
 // Para cargar auth.js durante el tiempo de arranque del servidor e iniciar el middleware de Passport
 app.use(initialize())
 

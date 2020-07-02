@@ -5,6 +5,6 @@ const cars = require('../service_cars/routes')
 const position = require('../service_position/routes')
 
 router.use(auth)
-router.use('/position', position)
+router.use('/location', position)
 router.use('/cars', authenticate(), cars)
 module.exports = router

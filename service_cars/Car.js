@@ -16,7 +16,7 @@ class MyQueryBuilder extends QueryBuilder {
         })
     }
     return this
-      .where({ idUser })
+      .where({ 'id_user': idUser })
       .then((cars) => {
         if (cars.length === 0) return [undefined, { status: 404, message: 'Automoviles no encontrados' }]
         return [cars, { status: 200, message: 'Automoviles Encontrados' }]
@@ -32,7 +32,7 @@ class MyQueryBuilder extends QueryBuilder {
       .where({ id })
       .then(([car]) => {
         if (!car) return [undefined, { status: 404, message: 'Automovil no encontrado' }]
-        if (car.idUser !== idUser) return [undefined, { status: 401, message: 'No tiene permisos para visualizar este recurso' }]
+        if (car.id_user !== idUser) return [undefined, { status: 401, message: 'No tiene permisos para visualizar este recurso' }]
         return [car, { status: 200, message: 'Automovil encontrado' }]
       })
       .catch((err) => {
@@ -59,7 +59,7 @@ class MyQueryBuilder extends QueryBuilder {
       .findById(idCar)
       .then((car) => {
         if (!car) return [undefined, { status: 404, message: 'Automovil no encontrado' }]
-        if (car.idUser !== idUser) return [undefined, { status: 401, message: 'No tiene permisos para modificar este recurso' }]
+        if (car.id_user !== idUser) return [undefined, { status: 401, message: 'No tiene permisos para modificar este recurso' }]
         return this
           .patchAndFetchById(idCar, data)
           .then((car) => {
@@ -82,7 +82,7 @@ class MyQueryBuilder extends QueryBuilder {
       .findById(idCar)
       .then((car) => {
         if (!car) return [undefined, { status: 404, message: 'Automovil no encontrado' }]
-        if (car.idUser !== idUser) return [undefined, { status: 401, message: 'No tiene permisos para elminar este recurso' }]
+        if (car.id_user !== idUser) return [undefined, { status: 401, message: 'No tiene permisos para elminar este recurso' }]
         return this
           .deleteById(idCar)
           .then((numberDeletedRows) => {
@@ -130,7 +130,7 @@ class Car extends Model {
   static get jsonSchema () {
     return {
       type: 'object',
-      required: ['plates', 'brand', 'color', 'model', 'idUser'],
+      required: ['plates', 'brand', 'color', 'model', 'id_user'],
       properties: {
         plates: { type: 'string', minLength: 1, maxLength: 45 },
         brand: { type: 'string', minLength: 1, maxLength: 45 },
