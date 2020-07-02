@@ -8,7 +8,7 @@ const updatePositionCar = async (req, res) => {
   }
   const [car, response] = await Car.query().updatePositionCar(data, req.params.id)
   if (!car) return res.status(response.status).send({ error: response.message })
-  return res.status(response.status).send({ message: response.message})
+  return res.status(response.status).send({ message: response.message })
 }
 
 module.exports = {
