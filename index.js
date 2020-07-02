@@ -21,7 +21,7 @@ app.use(cors({
   methods: [
     'GET', 'POST', 'PATCH', 'DELETE'
   ],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin']
 }))
 
 // Compression

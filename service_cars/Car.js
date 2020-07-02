@@ -3,8 +3,8 @@ const User = require('../service_user/User')
 const errorParser = require('../helpers/error_parser')
 
 class MyQueryBuilder extends QueryBuilder {
-  listCars (id_user, id_role) {
-    if (id_role === 1) {
+  listCars (idUser, idRole) {
+    if (idRole === 1) {
       return this
         .then((cars) => {
           if (cars.length === 0) return [undefined, { status: 404, message: 'Automoviles no encontrados' }]
@@ -16,7 +16,7 @@ class MyQueryBuilder extends QueryBuilder {
         })
     }
     return this
-      .where({ id_user })
+      .where({ idUser })
       .then((cars) => {
         if (cars.length === 0) return [undefined, { status: 404, message: 'Automoviles no encontrados' }]
         return [cars, { status: 200, message: 'Automoviles Encontrados' }]
@@ -27,12 +27,12 @@ class MyQueryBuilder extends QueryBuilder {
       })
   }
 
-  getById (id, id_user) {
+  getById (id, idUser) {
     return this
       .where({ id })
       .then(([car]) => {
         if (!car) return [undefined, { status: 404, message: 'Automovil no encontrado' }]
-        if (car.id_user !== id_user) return [undefined, { status: 401, message: 'No tiene permisos para visualizar este recurso' }]
+        if (car.idUser !== idUser) return [undefined, { status: 401, message: 'No tiene permisos para visualizar este recurso' }]
         return [car, { status: 200, message: 'Automovil encontrado' }]
       })
       .catch((err) => {
@@ -54,13 +54,14 @@ class MyQueryBuilder extends QueryBuilder {
       })
   }
 
-  updateCar (data, id_user, id_car) {
+  updateCar (data, idUser, idCar) {
     return this
-      .findById(id_car)
+      .findById(idCar)
       .then((car) => {
-        if (car.id_user !== id_user) return [undefined, { status: 401, message: 'No tiene permisos para modificar este recurso' }]
+        if (!car) return [undefined, { status: 404, message: 'Automovil no encontrado' }]
+        if (car.idUser !== idUser) return [undefined, { status: 401, message: 'No tiene permisos para modificar este recurso' }]
         return this
-          .patchAndFetchById(id_car, data)
+          .patchAndFetchById(idCar, data)
           .then((car) => {
             return [car, { status: 200, message: 'Automovil actualizado con exito' }]
           })
@@ -76,20 +77,42 @@ class MyQueryBuilder extends QueryBuilder {
       })
   }
 
-  deleteCar (id_user, id_car) {
+  deleteCar (idUser, idCar) {
     return this
-      .findById(id_car)
+      .findById(idCar)
       .then((car) => {
         if (!car) return [undefined, { status: 404, message: 'Automovil no encontrado' }]
-        if (car.id_user !== id_user) return [undefined, { status: 401, message: 'No tiene permisos para elminar este recurso' }]
+        if (car.idUser !== idUser) return [undefined, { status: 401, message: 'No tiene permisos para elminar este recurso' }]
         return this
-          .deleteById(id_car)
-          .then((number_deleted_rows) => {
-            return [number_deleted_rows, { status: 200, message: 'Automovil eliminado con exito' }]
+          .deleteById(idCar)
+          .then((numberDeletedRows) => {
+            return [numberDeletedRows, { status: 200, message: 'Automovil eliminado con exito' }]
           })
           .catch((err) => {
             console.log(err)
             return [undefined, { status: 500, message: 'internal server error' }]
+          })
+      })
+      .catch((err) => {
+        console.log(err)
+        return [undefined, { status: 500, message: 'internal server error' }]
+      })
+  }
+
+  updatePositionCar (data, idCar) {
+    return this
+      .findById(idCar)
+      .then((car) => {
+        if (!car) return [undefined, { status: 404, message: 'Automovil no encontrado' }]
+        return this
+          .patchAndFetchById(idCar, data)
+          .then((car) => {
+            return [car, { status: 200, message: 'Ubicación Actualizada con exito' }]
+          })
+          .catch((err) => {
+            console.log('errores del objection: ', err)
+            const errors = errorParser(err)
+            return [undefined, { status: errors.status, message: errors.message }]
           })
       })
       .catch((err) => {
@@ -107,7 +130,7 @@ class Car extends Model {
   static get jsonSchema () {
     return {
       type: 'object',
-      required: ['plates', 'brand', 'color', 'model', 'id_user'],
+      required: ['plates', 'brand', 'color', 'model', 'idUser'],
       properties: {
         plates: { type: 'string', minLength: 1, maxLength: 45 },
         brand: { type: 'string', minLength: 1, maxLength: 45 },
@@ -115,7 +138,7 @@ class Car extends Model {
         model: { type: 'string', minLength: 1, maxLength: 45 },
         lat: { type: 'number' },
         lng: { type: 'number' },
-        id_user: { type: 'integer', minimum: 1 }
+        idUser: { type: 'integer', minimum: 1 }
       }
     }
   }
@@ -126,7 +149,7 @@ class Car extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: 'cars.id_user',
+          from: 'cars.idUser',
           to: 'users.id'
         }
       }
