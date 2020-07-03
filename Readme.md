@@ -94,4 +94,3 @@ _Implementacíon de analisis de codigo usando sonarquebe_
 ## Autores ✒️
 
 * **Victor Manuel Palomo Yama** - *Backend Developer* - [vickpalomo](http://github.com/vickpalomo)
-
