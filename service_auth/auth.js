@@ -13,6 +13,7 @@ const login = async (req, res) => {
   const payload = {
     id: user.id,
     name: user.name,
+    last_name: user.las_name,
     role: user.id_role,
     iat: moment().unix(),
     exp: moment().add(480, 'minutes').unix()
@@ -20,7 +21,10 @@ const login = async (req, res) => {
 
   const token = jwt.encode(payload, config.jwtSecret)
   return res.status(200).send({
-    token: token
+    token: token,
+    role: user.id_role,
+    name: user.name + ' ' + user.last_name,
+    id_user: user.id
   })
 }
 

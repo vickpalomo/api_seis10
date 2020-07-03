@@ -16,10 +16,16 @@
  *    "password": "password"
  * }
  * @apiSuccess {String} token Token que se utiliza dentro de la aplicación para poder administrar el catalogo de automoviles
+ * @apiSuccess {Number} role Role del usuario
+ * @apiSuccess {String} name Nombre del usuario
+ * @apiSuccess {Number} id_user Id del usuario
  * @apiSuccessExample Success-Response:
  * HTTP/1.1 200 OK
  * {
- *    token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywibmFtZSI6IkpvcmdlIiwicm9sZSI6MiwiaWF0IjoxNTkzNjY3NjYyLCJleHAiOjE1OTM2OTY0NjJ9.7k0KumLm5vyxEKXD2pzuZEdt9rdT3NraISgh-eYkvx4"
+ *    token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywibmFtZSI6IkpvcmdlIiwicm9sZSI6MiwiaWF0IjoxNTkzNjY3NjYyLCJleHAiOjE1OTM2OTY0NjJ9.7k0KumLm5vyxEKXD2pzuZEdt9rdT3NraISgh-eYkvx4",
+  *   "role": 2,
+  *   "name": "Jorge Medrano",
+  *   "id_user": 3
  * }
  * @apiError Unauthorized Si no se envian parametros(email o password), Si los parametros no se encuentran en la base de datos
  * @apiErrorExample Unauthorized
