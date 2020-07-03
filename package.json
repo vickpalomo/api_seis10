@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "apidoc": "./node_modules/.bin/apidoc -i ./apidoc -o ./doc",
+    "migrations": "./node_modules/.bin/knex migrate:latest --knexfile=./config/config.js",
     "test": "jest --coverage --verbose"
   },
   "author": "Vick Palomo",

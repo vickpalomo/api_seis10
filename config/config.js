@@ -5,12 +5,15 @@ module.exports = {
     client: 'mysql2',
     connection: {
       host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DATABASE
+      user: 'root',
+      password: 'victor1023',
+      database: 'seis10'
     },
     migrations: {
-      directory: __dirname + '/__migrations__'
+      directory: '../__migrations__'
+    },
+    seeds: {
+      directory: '../__seeds__'
     },
     debug: true
   },
