@@ -1,3 +1,6 @@
+[![Build Status](http://54.184.109.104:8080/api/badges/vickpalomo/api_seis10/status.svg)](http://54.184.109.104:8080/vickpalomo/api_seis10)
+[![SonarQuebe](http://54.184.109.104:9000/api/project_badges/measure?project=vickpalomo%3Aapi_seis10&metric=alert_status)]
+
 # Prueba de Programacion seis10
 
 _Api desarrollada con node y express para resolver la prueba de programacion de la empresa seis10_
