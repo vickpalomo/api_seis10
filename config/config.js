@@ -5,9 +5,9 @@ module.exports = {
     client: 'mysql2',
     connection: {
       host: process.env.DB_HOST,
-      user: 'root',
-      password: 'victor1023',
-      database: 'seis10'
+      user: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DATABASE
     },
     migrations: {
       directory: '../__migrations__'

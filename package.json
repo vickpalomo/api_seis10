@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "apidoc": "./node_modules/.bin/apidoc -i ./apidoc -o ./doc",
-    "migrations": "./node_modules/.bin/knex migrate:latest --knexfile=./config/config.js",
-    "seeds": "./node_modules/.bin/knex seed:run --knexfile=./config/config.js",
+    "migrations": "./node_modules/.bin/knex migrate:latest --knexfile=./config/config_database.js",
+    "seeds": "./node_modules/.bin/knex seed:run --knexfile=./config/config_database.js",
     "start:prod": "node index.js",
     "test": "jest --coverage --verbose"
   },
