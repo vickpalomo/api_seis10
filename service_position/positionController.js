@@ -5,12 +5,12 @@ const updatePositionCar = async (req, res) => {
   if (!req.body.lat || !req.body.lng) return res.sendStatus(400)
   const data = {
     lat: req.body.lat,
-    lng: req.body.lat
+    lng: req.body.lng
   }
   const [car, response] = await Car.query().updatePositionCar(data, req.params.id)
   if (!car) return res.status(response.status).send({ error: response.message })
   const emit = {
-    id: req.params.id,
+    id: parseInt(req.params.id),
     position: {
       lat: req.body.lat,
       lng: req.body.lng
