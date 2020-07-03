@@ -35,10 +35,6 @@ module.exports = (function () {
   }
 
   const strategy = new Strategy(params, async function (payload, done) {
-    if (moment().isAfter(payload.expired_at)) {
-      console.log('Token expired')
-      return done(null, false, { message: 'Token expired' })
-    }
 
     const { id } = payload
     const [user] = await User.query().getById(id)

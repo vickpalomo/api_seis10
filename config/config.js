@@ -9,6 +9,9 @@ module.exports = {
       password: process.env.DB_PASS,
       database: process.env.DATABASE
     },
+    migrations: {
+      directory: __dirname + '/__migrations__'
+    },
     debug: true
   },
   production: {
